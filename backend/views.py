@@ -1,8 +1,8 @@
-from json import loads, load
+from json import loads
 
 import pymorphy2 as pymorphy2
 from django.http import JsonResponse
-from django.shortcuts import render
+# from django.shortcuts import render
 from django.views import View
 
 
@@ -17,15 +17,13 @@ class Text2SignView(View):
         if True:
             print(data)
             sentence = data.get('message')
-        morph = pymorphy2.MorphAnalyzer()
-        res = []
-        for word in sentence.split(' '):
-            p = morph.parse(word)[0]
-            res.append(p.normal_form)
+
+        words = self.get_words(sentence)
+        signs = self.get_signs(words)
         context = {
             'message': sentence,
-            'words': res,
-            'signs': self.get_signs(res)
+            'words': words,
+            'signs': signs
         }
         return JsonResponse(context)
 
@@ -33,3 +31,12 @@ class Text2SignView(View):
     def get_signs(words):
         assert words
         return 'Not yet'
+
+    @staticmethod
+    def get_words(sentence):
+        morph = pymorphy2.MorphAnalyzer()
+        result = []
+        for word in sentence.split(' '):
+            p = morph.parse(word)[0]
+            result.append(p.normal_form)
+        return result
