@@ -23,6 +23,13 @@ class Text2SignView(View):
             p = morph.parse(word)[0]
             res.append(p.normal_form)
         context = {
-            'words': res
+            'message': sentence,
+            'words': res,
+            'signs': self.get_signs(res)
         }
         return JsonResponse(context)
+
+    @staticmethod
+    def get_signs(words):
+        assert words
+        return 'Not yet'
