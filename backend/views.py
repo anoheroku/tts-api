@@ -12,7 +12,8 @@ class Text2SignView(View):
         try:
             data = loads(request.body)
         except TypeError:
-            data = load(request.body)
+            string = request.body.decode(encoding='utf-8')
+            data = loads(string, encoding='utf-8')
         if True:
             print(data)
             sentence = data.get('message')
