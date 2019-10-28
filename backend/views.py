@@ -1,9 +1,14 @@
 from json import loads
 
 import pymorphy2 as pymorphy2
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 # from django.shortcuts import render
 from django.views import View
+
+
+class MainView(View):
+    def get(self, request):
+        return HttpResponse("Hello guest! Translate the sign API works")
 
 
 class Text2SignView(View):
