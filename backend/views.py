@@ -35,7 +35,7 @@ class Text2SignView(View):
     @staticmethod
     def get_signs(words):
         assert words
-        return 'Not yet'
+        return ['Not', 'yet']
 
     @staticmethod
     def get_words(sentence):
