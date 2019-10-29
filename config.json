@@ -1,0 +1,6 @@
+{
+    "SECRET_KEY" : "=m2ng7(!j7snd(q!#)&2x8z*l47e0jhygpat&)eoxx6#sr6@4t",
+    "DATABASE_URL" : "",
+    "ALLOWED_HOSTS" : "[*]",
+    "DEBUG" : "True"
+}
