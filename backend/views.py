@@ -3,7 +3,6 @@ import pymorphy2 as pymorphy2
 from django.http import JsonResponse, HttpResponse
 # from django.shortcuts import render
 from django.views import View
-from storageapp.models import Sign
 from django.contrib.sites.shortcuts import get_current_site
 from .models import Sign
 
