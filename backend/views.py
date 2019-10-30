@@ -1,9 +1,10 @@
 from json import loads
-
 import pymorphy2 as pymorphy2
 from django.http import JsonResponse, HttpResponse
 # from django.shortcuts import render
 from django.views import View
+from django.contrib.sites.shortcuts import get_current_site
+from .models import Sign
 
 
 class MainView(View):
@@ -24,7 +25,7 @@ class Text2SignView(View):
             sentence = data.get('message')
 
         words = self.get_words(sentence)
-        signs = self.get_signs(words)
+        signs = self.get_signs(words, request)
         context = {
             'message': sentence,
             'words': words,
@@ -33,9 +34,15 @@ class Text2SignView(View):
         return JsonResponse(context)
 
     @staticmethod
-    def get_signs(words):
-        assert words
-        return ['Not', 'yet']
+    def get_signs(words, request):
+        result = []
+        for word in words:
+            try:
+                word_url = Sign.objects.get(normal_form=word).image.url
+            except:
+                word_url = '/media/normal_form_img/poster_none.png'
+            result.append(get_current_site(request).domain + word_url)
+        return result
 
     @staticmethod
     def get_words(sentence):
