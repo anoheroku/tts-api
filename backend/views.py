@@ -5,6 +5,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views import View
 from django.contrib.sites.shortcuts import get_current_site
 from .models import Sign
+from django.conf import settings
 
 
 class MainView(View):
@@ -36,12 +37,16 @@ class Text2SignView(View):
     @staticmethod
     def get_signs(words, request):
         result = []
+        # Не стали делать - одним запросом получить сразу словарь
+        # что бы не менять модель Sign ( поле normal_form не стали делать уникальным)
+        # normal_form_image = Sign.objects.in_bulk(words, field_name='normal_form')
+        queryset = Sign.objects.filter(normal_form__in=words).values_list('normal_form', 'image')
+        normal_form_image = dict(queryset)
         for word in words:
-            try:
-                word_url = Sign.objects.get(normal_form=word).image.url
-            except:
-                word_url = '/media/normal_form_img/poster_none.png'
-            result.append(get_current_site(request).domain + word_url)
+            if normal_form_image.get(word):
+                result.append(get_current_site(request).domain + settings.MEDIA_URL + normal_form_image.get(word))
+            else:
+                result.append(get_current_site(request).domain + settings.STATIC_URL + 'img/poster_none.png')
         return result
 
     @staticmethod
