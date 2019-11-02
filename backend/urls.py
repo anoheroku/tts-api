@@ -11,6 +11,4 @@ app_name = os.path.basename(os.path.dirname(os.path.abspath(__file__)))
 urlpatterns = [
     path('', MainView.as_view(), name='root'),
     path('text2sign', csrf_exempt(Text2SignView.as_view()), name='text2sign'),
-    # path('', GetSign.as_view()),
-    # path('sign2text', Sign2TextView.as_view(), name='sign2text')
 ]

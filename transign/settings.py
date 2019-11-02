@@ -126,5 +126,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (path.join(BASE_DIR, 'static'),)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = path.join(BASE_DIR, 'media')
+MEDIA = 'media'
+MEDIA_URL = f'/{MEDIA}/'
+MEDIA_ROOT = path.join(BASE_DIR, MEDIA)
+
+JSON_PATH = path.join('storageapp', 'json')
+IMAGE_SIGN_PATH = 'normal_form_img'
