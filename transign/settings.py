@@ -130,5 +130,5 @@ MEDIA = 'media'
 MEDIA_URL = f'/{MEDIA}/'
 MEDIA_ROOT = path.join(BASE_DIR, MEDIA)
 
-JSON_PATH = path.join('storageapp', 'json')
+JSON_PATH = path.join('backend', 'json')
 IMAGE_SIGN_PATH = 'normal_form_img'
